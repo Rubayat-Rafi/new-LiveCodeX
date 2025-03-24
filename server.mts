@@ -15,17 +15,17 @@ app.prepare().then(() => {
     const httpServer = createServer(handle);
     const io = new Server(httpServer);
     io.on("connection", (socket) => {
-        console.log("User Connected", socket.id)
+        // console.log("User Connected", socket.id)
 
 
         socket.on("join-room", ({room, userName}) => {
             socket.join(room);
-            console.log(`User ${userName} joined room ${room}`)
+            // console.log(`User ${userName} joined room ${room}`)
             socket.to(room).emit("user_joined", `${userName} joined the room`);
         })
 
         socket.on("message", ({room, message, sender}) => {
-            console.log(`Message: ${message} from ${sender}`)
+            // console.log(`Message: ${message} from ${sender}`)
             socket.to(room).emit("message", {sender, message});
         })
 
@@ -36,12 +36,6 @@ app.prepare().then(() => {
         });
 
     });
-
-
-
-
-
-
 
 
     httpServer.listen(port, ()=>{
